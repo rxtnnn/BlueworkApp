@@ -1,0 +1,36 @@
+<ion-content class="ion-padding">
+  <div class="welcome-container">
+    <div class="header-section">
+      <h1>Join<br>Bluework</h1>
+      <p>Join as an Employer or Worker</p>
+    </div>
+
+    <div class="user-type-cards">
+      <div class="user-card" (click)="selectUserType('employer')">
+        <div class="card-icon">
+          <ion-icon name="business-outline"></ion-icon>
+        </div>
+        <p>I'm an Employer looking to hire for a project</p>
+      </div>
+
+      <div class="user-card" (click)="selectUserType('worker')">
+        <div class="card-icon">
+          <ion-icon name="person-outline"></ion-icon>
+        </div>
+        <p>I'm a Worker looking to work on a project</p>
+      </div>
+    </div>
+
+     <ion-button
+      expand="block"
+      class="create-account-btn"
+      [disabled]="!selectUserType"
+      (click)="goToSignup()">
+      Create Account
+    </ion-button>
+
+    <div class="login-section">
+      <p>Already a member? <span class="login-link" (click)="goToLogin()">Log in</span></p>
+    </div>
+  </div>
+</ion-content>

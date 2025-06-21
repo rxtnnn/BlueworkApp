@@ -1,0 +1,149 @@
+.login-container {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 56px);
+  justify-content: center;
+  padding: 20px;
+}
+
+.header-section {
+  margin-bottom: 40px;
+
+  h1 {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #333;
+    line-height: 1.2;
+  }
+
+  p {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 30px;
+  }
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.input-item {
+  --background: #f8f9fa;
+  --border-radius: 8px;
+  --padding-start: 16px;
+  --padding-end: 16px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+
+  &.ion-invalid {
+    border-color: #e53e3e;
+  }
+
+  ion-input {
+    --placeholder-color: #999;
+  }
+}
+
+.error-message {
+  margin-top: 8px;
+  font-size: 12px;
+  color: #e53e3e;
+  padding-left: 16px;
+}
+
+.form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  font-size: 14px;
+
+  .remember-me {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #666;
+    cursor: pointer;
+
+    ion-checkbox {
+      --size: 18px;
+      --checkbox-background-checked: #1976d2;
+    }
+  }
+
+  .forgot-password {
+    color: #1976d2;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: 500;
+  }
+}
+
+.login-btn {
+  width: 100%;
+  height: 48px;
+  margin-bottom: 20px;
+  --background: #1976d2;
+  --border-radius: 8px;
+  font-weight: 600;
+}
+
+.divider {
+  text-align: center;
+  margin: 20px 0;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: #e0e0e0;
+  }
+
+  span {
+    background: white;
+    padding: 0 16px;
+    color: #666;
+    font-size: 14px;
+    position: relative;
+  }
+}
+
+.social-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.social-btn {
+  width: 50px;
+  height: 50px;
+  --border-color: #e0e0e0;
+  --border-radius: 8px;
+
+  ion-icon {
+    font-size: 20px;
+  }
+}
+
+.signup-section {
+  text-align: center;
+
+  p {
+    font-size: 14px;
+    color: #666;
+    margin: 0;
+  }
+
+  .signup-link {
+    color: #1976d2;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: 500;
+  }
+}

@@ -1,0 +1,99 @@
+.welcome-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.header-section {
+  text-align: center;
+  margin-bottom: 60px;
+
+  h1 {
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #333;
+  }
+
+  p {
+    font-size: 16px;
+    color: #666;
+    margin: 0;
+  }
+}
+
+.user-type-cards {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 40px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.user-card {
+  flex: 1;
+  background: white;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 20px 16px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    border-color: #1976d2;
+    box-shadow: 0 4px 12px rgba(25, 118, 210, 0.1);
+  }
+
+  .card-icon {
+    margin-bottom: 12px;
+
+    ion-icon {
+      font-size: 24px;
+      color: #333;
+    }
+  }
+
+  p {
+    font-size: 14px;
+    color: #666;
+    margin: 0;
+    line-height: 1.4;
+  }
+}
+
+.create-account-btn {
+  width: 100%;
+  max-width: 400px;
+  height: 48px;
+  margin-bottom: 20px;
+  --background: #1976d2;
+  --border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+
+  &[disabled] {
+    --background: #e0e0e0;
+    --color: #999;
+    opacity: 0.6;
+  }
+}
+.login-section {
+  text-align: center;
+
+  p {
+    font-size: 14px;
+    color: #666;
+    margin: 0;
+  }
+
+  .login-link {
+    color: #1976d2;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: 500;
+  }
+}

@@ -1,0 +1,76 @@
+<ion-content class="ion-padding">
+  <div class="login-container">
+    <div class="header-section">
+      <h1>Sign in to your<br>account</h1>
+      <p>Enter your email and password to login</p>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+      <div class="form-group">
+        <ion-item lines="none" class="input-item">
+          <ion-input
+            type="email"
+            placeholder="Email or Mobile number"
+            formControlName="email"
+            [class.ion-invalid]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+          </ion-input>
+        </ion-item>
+        <div class="error-message" *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+          <span *ngIf="loginForm.get('email')?.errors?.['required']">Email is required</span>
+          <span *ngIf="loginForm.get('email')?.errors?.['email']">Please enter a valid email</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <ion-item lines="none" class="input-item">
+          <ion-input
+            type="password"
+            placeholder="Password"
+            formControlName="password"
+            [class.ion-invalid]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+          </ion-input>
+        </ion-item>
+        <div class="error-message" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+          <span *ngIf="loginForm.get('password')?.errors?.['required']">Password is required</span>
+        </div>
+      </div>
+
+      <div class="form-options">
+        <label class="remember-me">
+          <ion-checkbox [(ngModel)]="rememberMe" [ngModelOptions]="{standalone: true}"></ion-checkbox>
+          <span>Remember me</span>
+        </label>
+        <span class="forgot-password" (click)="forgotPassword()">Forgot Password?</span>
+      </div>
+
+      <ion-button
+        type="submit"
+        expand="block"
+        class="login-btn"
+        [disabled]="loginForm.invalid || isLoading"
+        (click)="goToHome()">
+        Sign Up
+      </ion-button>
+    </form>
+
+    <div class="divider">
+      <span>Or sign up with</span>
+    </div>
+
+    <div class="social-buttons">
+      <ion-button fill="outline" class="social-btn" (click)="signInWithGoogle()">
+        <ion-icon name="logo-google"></ion-icon>
+      </ion-button>
+      <ion-button fill="outline" class="social-btn" (click)="signInWithFacebook()">
+        <ion-icon name="logo-facebook"></ion-icon>
+      </ion-button>
+      <ion-button fill="outline" class="social-btn" (click)="signInWithPhone()">
+        <ion-icon name="call-outline"></ion-icon>
+      </ion-button>
+    </div>
+
+    <div class="signup-section">
+      <p>Don't have an account? <span class="signup-link" (click)="goToSignUp()">Sign up</span></p>
+    </div>
+  </div>
+</ion-content>
