@@ -62,7 +62,7 @@ export class AuthService {
   // Sign out
   async signOut(): Promise<void> {
     await signOut(this.auth);
-    this.router.navigate(['/welcome']);
+    this.router.navigate(['/home']);
   }
 
   // Check if user is authenticated

@@ -1,3 +1,4 @@
+// UPDATE: src/app/pages/login/login.page.ts - Add role-based navigation
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -42,11 +43,20 @@ export class LoginPage {
         await loading.dismiss();
 
         if (result.user) {
-          // Get user profile to determine redirect
+          // Get user profile to determine redirect based on user type
           this.authService.getUserProfile(result.user.uid).subscribe(async (profile) => {
             if (profile) {
-              // Redirect based on user type or to dashboard
-              this.router.navigate(['/dashboard']);
+              // Navigate based on user type
+              if (profile.userType === 'worker') {
+                this.router.navigate(['/workers-home']);
+              } else if (profile.userType === 'employer') {
+                this.router.navigate(['/home']); // or employer-specific page
+              } else {
+                this.router.navigate(['/home']); // fallback
+              }
+            } else {
+              // If no profile found, go to dashboard
+              this.router.navigate(['/home']);
             }
           });
         }
@@ -156,9 +166,13 @@ export class LoginPage {
   }
 
   goToSignUp() {
-    this.router.navigate(['/role']);
+    this.router.navigate(['/welcome']);
   }
+
   goToHome() {
+    this.router.navigate(['/home']);
+  }
+  goBack() {
     this.router.navigate(['/home']);
   }
 }

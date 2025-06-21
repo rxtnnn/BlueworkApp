@@ -1,0 +1,98 @@
+<ion-header class="custom-header">
+  <ion-toolbar>
+    <ion-title class="header-title">BLUEWORK</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" class="notification-btn">
+        <ion-icon name="notifications-outline"></ion-icon>
+      </ion-button>
+      <ion-button fill="clear" class="settings-btn" (click)="logout()">
+        <ion-icon name="settings-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Category Tabs -->
+  <div class="category-tabs">
+    <div class="tabs-container">
+      <div
+        *ngFor="let category of categories"
+        class="tab-item"
+        [class.active]="selectedCategory === category"
+        (click)="selectCategory(category)">
+        {{category}}
+      </div>
+    </div>
+  </div>
+
+  <!-- Construction Header -->
+  <div class="section-header">
+    <h2>{{selectedCategory}}</h2>
+    <p>Find expert construction services that offer top quality and reliability</p>
+    <div class="services-count">
+      <span>{{jobCards.length}},433 services available</span>
+    </div>
+  </div>
+
+  <!-- Job Cards Grid -->
+  <div class="jobs-grid">
+    <div
+      *ngFor="let job of jobCards"
+      class="job-card"
+      (click)="viewJobDetails(job)">
+
+      <!-- Job Image -->
+      <div class="job-image">
+        <img [src]="job.image" [alt]="job.title" onerror="this.src='/assets/images/placeholder.jpg'">
+      </div>
+
+      <!-- Job Content -->
+      <div class="job-content">
+        <!-- Client Info -->
+        <div class="client-info">
+          <img [src]="job.clientAvatar" [alt]="job.clientName" class="client-avatar" onerror="this.src='/assets/images/default-avatar.jpg'">
+          <span class="client-name">{{job.clientName}}</span>
+          <ion-icon *ngIf="job.isVerified" name="checkmark-circle" class="verified-icon"></ion-icon>
+        </div>
+
+        <!-- Job Description -->
+        <p class="job-description">{{job.description}}</p>
+
+        <!-- Job Footer -->
+        <div class="job-footer">
+          <div class="job-meta">
+            <ion-icon name="star" class="star-icon"></ion-icon>
+            <span class="rating">{{job.rating}}</span>
+            <ion-icon name="location-outline" class="location-icon"></ion-icon>
+            <span class="location">{{job.location}}</span>
+          </div>
+          <span class="posted-time">{{job.postedTime}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>
+
+<!-- Bottom Navigation -->
+<ion-tab-bar slot="bottom" class="custom-tab-bar">
+  <ion-tab-button (click)="goToSearch()">
+    <ion-icon name="home"></ion-icon>
+  </ion-tab-button>
+
+  <ion-tab-button (click)="goToSearch()">
+    <ion-icon name="search"></ion-icon>
+  </ion-tab-button>
+
+  <ion-tab-button (click)="goToBookings()">
+    <ion-icon name="calendar"></ion-icon>
+  </ion-tab-button>
+
+  <ion-tab-button (click)="goToMessages()">
+    <ion-icon name="chatbubble"></ion-icon>
+  </ion-tab-button>
+
+  <ion-tab-button (click)="goToProfile()">
+    <ion-icon name="person"></ion-icon>
+  </ion-tab-button>
+</ion-tab-bar>

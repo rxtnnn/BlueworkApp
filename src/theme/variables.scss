@@ -1,2 +1,18 @@
 // For information on how to create your own theme, please see:
 // http://ionicframework.com/docs/theming/
+.back-button {
+  position: absolute;
+  top: 20px;
+  left: 16px;
+  z-index: 100;
+  --color: #333;
+  --background: transparent;
+  --padding-start: 0;
+  --padding-end: 0;
+  font-size: 16px;
+
+  ion-icon {
+    margin-right: 8px;
+    font-size: 20px;
+  }
+}

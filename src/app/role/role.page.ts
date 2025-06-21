@@ -22,5 +22,7 @@ export class RolePage implements OnInit {
   goToSignup() {
     this.router.navigate(['/signup']);
   }
-
+  goBack() {
+    this.router.navigate(['/home']);
+  }
 }

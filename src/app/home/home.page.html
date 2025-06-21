@@ -1,20 +1,118 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content>
+  <!-- Header -->
+  <div class="header-section">
+    <div class="header-navbar">
+      <div class="logo">
+        <h1>BLUEWORK</h1>
+      </div>
+      <div class="nav-buttons">
+        <ion-button fill="clear" class="login-btn" (click)="goToLogin()">
+          Login
+        </ion-button>
+        <ion-button fill="solid" class="signup-btn" (click)="goToSignUp()">
+          Sign up
+        </ion-button>
+      </div>
+    </div>
+  </div>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <!-- Hero Section -->
+  <div class="hero-section">
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1>Get connected with the right freelance talent in seconds!</h1>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+        <!-- Search Bar -->
+        <div class="search-container">
+          <ion-searchbar
+            [(ngModel)]="searchQuery"
+            placeholder="What service are you looking for?"
+            class="custom-searchbar"
+            (ionInput)="onSearch()">
+          </ion-searchbar>
+        </div>
+
+        <!-- Category Tags -->
+        <div class="category-tags">
+          <ion-chip
+            *ngFor="let category of categories"
+            class="category-chip"
+            (click)="selectCategory(category)">
+            {{category}}
+          </ion-chip>
+        </div>
+      </div>
+
+      <div class="hero-image">
+        <img src="/assets/images/construction-worker-hero.jpg" alt="Construction worker" onerror="this.src='https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&h=400&fit=crop'">
+      </div>
+    </div>
+  </div>
+
+  <!-- Features Section -->
+  <div class="features-section">
+    <div class="features-header">
+      <h2>The best part? <span class="highlight">Everything.</span></h2>
+    </div>
+
+    <div class="features-grid">
+      <div *ngFor="let feature of features" class="feature-card">
+        <div class="feature-icon">
+          <ion-icon [name]="feature.icon"></ion-icon>
+        </div>
+        <h3>{{feature.title}}</h3>
+        <p>{{feature.description}}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Secondary Hero Image -->
+  <div class="secondary-hero">
+    <img src="/assets/images/worker-construction.jpg" alt="Worker on construction site" onerror="this.src='https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=600&h=400&fit=crop'">
+  </div>
+
+  <!-- Footer -->
+  <div class="footer-section">
+    <div class="footer-grid">
+      <!-- Categories -->
+      <div class="footer-column">
+        <h4>{{footerSections[0].title}}</h4>
+        <ul>
+          <li *ngFor="let link of footerSections[0].links">{{link}}</li>
+        </ul>
+      </div>
+
+      <!-- About -->
+      <div class="footer-column">
+        <h4>{{footerSections[1].title}}</h4>
+        <ul>
+          <li *ngFor="let link of footerSections[1].links">{{link}}</li>
+        </ul>
+      </div>
+
+      <!-- Support -->
+      <div class="footer-column">
+        <h4>{{footerSections[2].title}}</h4>
+        <ul>
+          <li *ngFor="let link of footerSections[2].links">{{link}}</li>
+        </ul>
+      </div>
+
+      <!-- Community -->
+      <div class="footer-column">
+        <h4>{{communitySection.title}}</h4>
+        <ul>
+          <li *ngFor="let link of communitySection.links">{{link}}</li>
+        </ul>
+      </div>
+
+      <!-- More from BlueWork -->
+      <div class="footer-column">
+        <h4>{{moreFromSection.title}}</h4>
+        <ul>
+          <li *ngFor="let link of moreFromSection.links">{{link}}</li>
+        </ul>
+      </div>
+    </div>
   </div>
 </ion-content>
