@@ -1,0 +1,7 @@
+{
+  "name": "blueworkApp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
