@@ -43,19 +43,16 @@ export class LoginPage {
         await loading.dismiss();
 
         if (result.user) {
-          // Get user profile to determine redirect based on user type
           this.authService.getUserProfile(result.user.uid).subscribe(async (profile) => {
             if (profile) {
-              // Navigate based on user type
               if (profile.userType === 'worker') {
                 this.router.navigate(['/workers-home']);
               } else if (profile.userType === 'employer') {
-                this.router.navigate(['/home']); // or employer-specific page
+                this.router.navigate(['/home']);
               } else {
-                this.router.navigate(['/home']); // fallback
+                this.router.navigate(['/home']);
               }
             } else {
-              // If no profile found, go to dashboard
               this.router.navigate(['/home']);
             }
           });

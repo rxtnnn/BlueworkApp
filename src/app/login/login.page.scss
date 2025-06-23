@@ -4,6 +4,10 @@
   min-height: calc(100vh - 56px);
   justify-content: center;
   padding: 20px;
+  background: white;
+}
+ion-content {
+  --background: white;
 }
 
 .header-section {

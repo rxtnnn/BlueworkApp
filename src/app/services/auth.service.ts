@@ -26,13 +26,11 @@ export class AuthService {
     this.user$ = authState(this.auth);
   }
 
-  // Sign up with email and password
   async signUp(email: string, password: string, userType: 'employer' | 'worker'): Promise<any> {
     try {
       const credential = await createUserWithEmailAndPassword(this.auth, email, password);
 
       if (credential.user) {
-        // Store user profile in Firestore
         const userProfile: UserProfile = {
           uid: credential.user.uid,
           email: email,
@@ -49,7 +47,6 @@ export class AuthService {
     }
   }
 
-  // Sign in with email and password
   async signIn(email: string, password: string): Promise<any> {
     try {
       const credential = await signInWithEmailAndPassword(this.auth, email, password);
@@ -59,20 +56,17 @@ export class AuthService {
     }
   }
 
-  // Sign out
   async signOut(): Promise<void> {
     await signOut(this.auth);
     this.router.navigate(['/home']);
   }
 
-  // Check if user is authenticated
   isAuthenticated(): Observable<boolean> {
     return authState(this.auth).pipe(
       map(user => !!user)
     );
   }
 
-  // Get current user
   getCurrentUser(): Promise<User | null> {
     return new Promise((resolve) => {
       const subscription = authState(this.auth).subscribe(user => {
@@ -82,7 +76,6 @@ export class AuthService {
     });
   }
 
-  // Get user profile from Firestore
   getUserProfile(uid: string): Observable<UserProfile | undefined> {
     const userDocRef = doc(this.firestore, 'users', uid);
     return docData(userDocRef) as Observable<UserProfile | undefined>;
