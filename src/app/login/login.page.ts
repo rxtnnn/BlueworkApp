@@ -48,7 +48,7 @@ export class LoginPage {
               if (profile.userType === 'worker') {
                 this.router.navigate(['/workers-home']);
               } else if (profile.userType === 'employer') {
-                this.router.navigate(['/home']);
+                this.router.navigate(['/employer-home']);
               } else {
                 this.router.navigate(['/home']);
               }
