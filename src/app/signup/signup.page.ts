@@ -95,7 +95,6 @@ export class SignupPage implements OnInit {
   }
 
   async signUpWithGoogle() {
-    // Implement Google sign-up if needed
     const alert = await this.alertController.create({
       header: 'Info',
       message: 'Google sign-up will be implemented soon',
@@ -105,7 +104,6 @@ export class SignupPage implements OnInit {
   }
 
   async signUpWithFacebook() {
-    // Implement Facebook sign-up if needed
     const alert = await this.alertController.create({
       header: 'Info',
       message: 'Facebook sign-up will be implemented soon',
@@ -115,7 +113,6 @@ export class SignupPage implements OnInit {
   }
 
   async signUpWithPhone() {
-    // Implement phone sign-up if needed
     const alert = await this.alertController.create({
       header: 'Info',
       message: 'Phone sign-up will be implemented soon',

@@ -147,22 +147,18 @@ export class WorkersHomePage implements OnInit {
   }
 
     goToProfile() {
-      // Navigate to profile page
       console.log('Go to profile');
     }
 
     goToMessages() {
-      // Navigate to messages page
       console.log('Go to messages');
     }
 
   goToBookings() {
-    // Navigate to bookings page
     console.log('Go to bookings');
   }
 
   goToSearch() {
-    // Navigate to search page
     console.log('Go to search');
   }
 }
