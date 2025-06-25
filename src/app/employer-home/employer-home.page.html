@@ -1,0 +1,212 @@
+<ion-content>
+  <!-- Client Dashboard Header -->
+  <div class="dashboard-header">
+    <h1>Client Dashboard</h1>
+  </div>
+
+  <!-- Two Column Layout -->
+  <div class="dashboard-container">
+    <!-- Left Column - Job Postings -->
+    <div class="left-column">
+      <!-- Job Postings Card -->
+      <div class="job-postings-card">
+        <div class="card-header">
+          <h2>Your Job Postings</h2>
+          <ion-button fill="clear" class="see-all-btn">
+            See all postings
+          </ion-button>
+        </div>
+
+        <!-- Job List -->
+        <div class="job-list" *ngIf="jobs.length > 0; else noJobsPosted">
+          <ion-item-sliding *ngFor="let job of jobs; trackBy: trackByJobId">
+            <ion-item lines="none" class="job-item-content">
+              <div class="job-item">
+                <div class="job-main-info">
+                  <h3>{{job.headline}}</h3>
+                  <div class="job-tags">
+                    <span class="tag fixed">Fixed</span>
+                    <span class="tag price">Price</span>
+                    <span class="tag public">Public</span>
+                  </div>
+                  <p class="job-date">Created {{getTimeAgo(job.datePosted)}}</p>
+                </div>
+
+                <div class="job-stats">
+                  <div class="stat-item">
+                    <span class="stat-number">{{job.proposals || 0}}</span>
+                    <span class="stat-label">Proposals</span>
+                  </div>
+                  <div class="stat-item">
+                    <span class="stat-number">{{job.messaged || 0}}</span>
+                    <span class="stat-label">Messaged</span>
+                  </div>
+                  <div class="stat-item">
+                    <span class="stat-number">{{job.hired || 0}}</span>
+                    <span class="stat-label">Hired</span>
+                  </div>
+                </div>
+
+                <div class="job-actions">
+                  <ion-button fill="clear" size="small" (click)="editJob(job)">
+                    <ion-icon name="create-outline"></ion-icon>
+                  </ion-button>
+                </div>
+              </div>
+            </ion-item>
+
+            <!-- Sliding Options -->
+            <ion-item-options side="end">
+              <ion-item-option (click)="deleteJob(job)" color="danger">
+                <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+              </ion-item-option>
+            </ion-item-options>
+
+            <!-- Optional: Sliding options on start (left side) -->
+            <ion-item-options side="start">
+              <ion-item-option (click)="duplicateJob(job)" color="secondary">
+                <ion-icon slot="icon-only" name="copy-outline"></ion-icon>
+              </ion-item-option>
+            </ion-item-options>
+          </ion-item-sliding>
+        </div>
+        <ng-template #noJobsPosted>
+          <div class="no-jobs-posted">
+            <p>No job postings yet</p>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+
+    <!-- Right Column - Post Job & Browse -->
+    <div class="right-column">
+      <!-- Post a Job Button -->
+      <ion-button
+        expand="block"
+        class="post-job-btn"
+        (click)="toggleJobForm()">
+        {{showJobForm ? 'Cancel Posting' : 'Post a Job'}}
+      </ion-button>
+
+      <!-- Browse Project Catalog -->
+      <div class="browse-catalog-card">
+        <h3>Browse Project Catalog</h3>
+      </div>
+    </div>
+  </div>
+
+  <!-- Job Form Modal/Overlay -->
+  <div class="job-form-overlay" *ngIf="showJobForm" (click)="closeJobForm($event)">
+    <div class="job-form-container" (click)="$event.stopPropagation()">
+      <div class="form-header">
+        <h2>{{isEditing ? 'Edit Job Posting' : 'Post a New Job'}}</h2>
+        <ion-button fill="clear" class="close-btn" (click)="toggleJobForm()">
+          <ion-icon name="close-outline"></ion-icon>
+        </ion-button>
+      </div>
+
+      <form [formGroup]="jobForm" (ngSubmit)="onSubmitJob()">
+        <!-- Headline -->
+        <div class="form-group">
+          <ion-item lines="none" class="input-item">
+            <ion-input
+              label="Job Headline"
+              labelPlacement="stacked"
+              placeholder="Write a clear, engaging headline for your job"
+              formControlName="headline"
+              maxlength="100"
+              [class.ion-invalid]="jobForm.get('headline')?.invalid && jobForm.get('headline')?.touched">
+            </ion-input>
+          </ion-item>
+          <div class="error-message" *ngIf="jobForm.get('headline')?.invalid && jobForm.get('headline')?.touched">
+            <span *ngIf="jobForm.get('headline')?.errors?.['required']">Headline is required</span>
+            <span *ngIf="jobForm.get('headline')?.errors?.['minlength']">Headline must be at least 10 characters</span>
+          </div>
+        </div>
+
+        <!-- Description -->
+        <div class="form-group">
+          <ion-item lines="none" class="textarea-item">
+            <ion-textarea
+              label="Job Description"
+              labelPlacement="stacked"
+              placeholder="Describe the job requirements, responsibilities, and any specific details..."
+              formControlName="description"
+              rows="6"
+              [class.ion-invalid]="jobForm.get('description')?.invalid && jobForm.get('description')?.touched">
+            </ion-textarea>
+          </ion-item>
+          <div class="error-message" *ngIf="jobForm.get('description')?.invalid && jobForm.get('description')?.touched">
+            <span *ngIf="jobForm.get('description')?.errors?.['required']">Description is required</span>
+            <span *ngIf="jobForm.get('description')?.errors?.['minlength']">Description must be at least 50 characters</span>
+          </div>
+        </div>
+
+        <!-- Skills -->
+        <div class="form-group">
+          <ion-label class="skills-label">Required Skills</ion-label>
+          <div class="skills-grid">
+            <ion-chip
+              *ngFor="let skill of skillOptions"
+              [class.selected]="isSkillSelected(skill)"
+              (click)="toggleSkill(skill)">
+              {{skill}}
+            </ion-chip>
+          </div>
+          <div class="error-message" *ngIf="skillsFormArray.invalid && skillsFormArray.touched">
+            <span>Please select at least one skill</span>
+          </div>
+        </div>
+
+        <!-- Budget -->
+        <div class="form-group">
+          <ion-item lines="none" class="input-item">
+            <ion-input
+              label="Estimated Budget (PHP)"
+              labelPlacement="stacked"
+              type="number"
+              placeholder="Enter your budget"
+              formControlName="budget"
+              [class.ion-invalid]="jobForm.get('budget')?.invalid && jobForm.get('budget')?.touched">
+            </ion-input>
+          </ion-item>
+          <div class="error-message" *ngIf="jobForm.get('budget')?.invalid && jobForm.get('budget')?.touched">
+            <span *ngIf="jobForm.get('budget')?.errors?.['required']">Budget is required</span>
+            <span *ngIf="jobForm.get('budget')?.errors?.['min']">Budget must be greater than 0</span>
+          </div>
+        </div>
+
+        <!-- Location -->
+        <div class="form-group">
+          <ion-item lines="none" class="input-item">
+            <ion-input
+              label="Location"
+              labelPlacement="stacked"
+              placeholder="Enter job location"
+              formControlName="location"
+              [class.ion-invalid]="jobForm.get('location')?.invalid && jobForm.get('location')?.touched">
+            </ion-input>
+          </ion-item>
+          <div class="error-message" *ngIf="jobForm.get('location')?.invalid && jobForm.get('location')?.touched">
+            <span *ngIf="jobForm.get('location')?.errors?.['required']">Location is required</span>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <ion-button
+          type="submit"
+          expand="block"
+          class="submit-btn"
+          [disabled]="jobForm.invalid">
+          {{isEditing ? 'Update Job' : 'Post Job'}}
+        </ion-button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Loading -->
+  <div class="loading-section" *ngIf="isLoading">
+    <ion-spinner></ion-spinner>
+    <p>Loading your jobs...</p>
+  </div>
+</ion-content>

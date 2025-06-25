@@ -28,6 +28,11 @@ const routes: Routes = [
     loadChildren: () => import('./workers-home/workers-home.module').then( m => m.WorkersHomePageModule),
     canActivate: [AuthGuard]
   },
+  {
+    path: 'employer-home',
+    loadChildren: () => import('./employer-home/employer-home.module').then( m => m.EmployerHomePageModule)
+  },
+
 ];
 
 @NgModule({
